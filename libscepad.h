@@ -40,21 +40,27 @@ Header by github/MasonLeeBack
 
 #define DS4_BM_OPTIONS  0x00000008
 
+#define DS4_BM_TOUCH    0x00100000
+
 // Call sceSetParticularMode(true) to use these
 #define DS4_BM_SHARE    0x00000001
 #define DS4_BM_PSBTN    0x00010000
 
-#define DS4_BM_TOUCH    0x00100000
+typedef struct {
+    uint8_t X;
+    uint8_t Y;
+} s_SceStickData;
 
-// Data structure to pass to scePadRead or scePadReadState
+// TODO: Things to be figured out later
+//      Offsets for the gyroscope, touchpad, etc.
 // 120 bytes
 typedef struct {
     uint32_t bitmask_buttons;
-    uint8_t ls_x;
-    uint8_t ls_y;
-    uint8_t rs_x;
-    uint8_t rs_y;
-    char oth[112]; // todo later: figure this out?
+    s_SceStickData LeftStick;
+    s_SceStickData RightStick;
+    uint8_t L2_Analog;
+    uint8_t R2_Analog;
+    char oth[110];
 } s_ScePadData;
 
 #ifdef __cplusplus
