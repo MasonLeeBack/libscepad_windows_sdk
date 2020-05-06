@@ -51,6 +51,12 @@ typedef struct {
     uint8_t Y;
 } s_SceStickData;
 
+typedef struct {
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+} s_SceLightBar;
+
 // TODO: Things to be figured out later
 //      Offsets for the gyroscope, touchpad, etc.
 // 120 bytes
@@ -73,6 +79,8 @@ int scePadOpen(int userID, int, int, void*);
 int scePadRead(int handle, void* data, int count);
 int scePadReadState(int handle, void* data);
 int scePadSetParticularMode(bool);
+int scePadSetLightBar(int handle, void* lightdata);
+int scePadResetLightBar(int handle);
 
 #ifdef __cplusplus
 }
