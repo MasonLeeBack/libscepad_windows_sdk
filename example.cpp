@@ -10,39 +10,42 @@ example app
 
 int main(int argc, char* argv[])
 {
-	int PadHandle = 0;
+    int PadHandle = 0;
 
-	// Initialize ScePad
-	if (scePadInit() != SCE_OK)
-		return -1;
+    // Initialize ScePad
+    if (scePadInit() != SCE_OK)
+        return -1;
 
-	PadHandle = scePadOpen(1, NULL, NULL, NULL);
+    PadHandle = scePadOpen(1, NULL, NULL, NULL);
 
-	if (PadHandle <= 0)
-		return -2;
+    if (PadHandle <= 0)
+        return -2;
 
-	scePadSetParticularMode(true);
+    scePadSetParticularMode(true);
 
-	while (1) {
-		s_ScePadData data;
-		system("cls");
-		if (scePadReadState(PadHandle, &data) == SCE_OK) {
-			printf("%08X\n", data.bitmask_buttons);
+    while (1) {
+        s_ScePadData data;
 
-			printf("%02X ", data.ls_x);
-			printf("%02X \n", data.ls_y);
+        system("cls");
 
-			printf("%02X ", data.rs_x);
-			printf("%02X ", data.rs_y);
+        if (scePadReadState(PadHandle, &data) == SCE_OK) {
+            // Mask for buttons
+            printf("Buttons: %08X\n", data.bitmask_buttons);
 
-			if (data.bitmask_buttons & DS4_BM_OPTIONS)
-				break;
-		}
+            // Sticks
+            printf("Left stick: %02X %02X\n", data.LeftStick.X, data.LeftStick.Y);
+            printf("Right stick: %02X %02X\n", data.RightStick.X, data.RightStick.Y);
 
-		Sleep(100);
-	}
+            printf("L2: %02X R2 %02X\n", data.L2_Analog, data.R2_Analog);
 
-	scePadClose(PadHandle);
+            if (data.bitmask_buttons & DS4_BM_OPTIONS)
+                break;
+        }
 
-	return 0;
+        Sleep(200);
+    }
+
+    scePadClose(PadHandle);
+
+    return 0;
 }
