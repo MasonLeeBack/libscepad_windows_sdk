@@ -1,4 +1,5 @@
 # libScePad Windows SDK
 
-Grab a copy of libScePad.dll. Place it in this folder and run create_lib.bat.
-A small example is included as well.
+Usage:
+
+Obtain a copy of libScePad.dll, after placing in the root directory you should run create_lib.bat to create a library file to use with this SDK. Be sure to include libscepad.h in your project as well as libscepad.lib.
